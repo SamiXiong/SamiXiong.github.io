@@ -14,12 +14,19 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import axios from 'axios'
+
 import FullCalendar from 'vue-full-calendar'
 
 Vue.use(FullCalendar)
 
 Vue.use(ElementUI)
 
+// axios全局使用 ;
+
+Vue.prototype.$axios = axios
+axios.defaults.baseURL = 'http://www.52zuji.com/admin'
+//  默认接口地址
 Vue.config.productionTip = false
 
 new Vue({

@@ -4,7 +4,6 @@ const _import = require('./_import_' + process.env.NODE_ENV)
 Vue.use(Router)
 
 import Layout from '../views/layout/Layout'
-import Demo from "../views/orderManagement/demo"
 
 export const constantRouterMap = [
   { path: '/login', component: _import('login/index'), hidden: true },
@@ -27,6 +26,7 @@ export const constantRouterMap = [
     // redirect: '/table/index',
     name: 'table',
     meta: { icon: 'example' },
+    hidden: false,
     children: [
       {
         path: 'index',
@@ -207,6 +207,7 @@ export const constantRouterMap = [
   {
     path: '/storeManagement',
     name: 'storeManagement',
+    redirect: '/storeManagement/storeList',
     component: Layout,
     meta: { title: '门店管理', icon: 'table' },
     children: [
@@ -221,6 +222,12 @@ export const constantRouterMap = [
         name: 'serialNumber',
         component: () => import('@/views/storeManagement/serialNumber'),
         meta: { title: '序列号库', icon: 'table' }
+      },
+      {
+        path: 'newStores',
+        name: 'newStores',
+        component: () => import('@/views/storeManagement/newStores'),
+        hidden: true
       }
     ]
   },
