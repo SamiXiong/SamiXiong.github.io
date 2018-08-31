@@ -4,7 +4,7 @@
       <el-form :inline="true">
           <el-row>
             <el-form-item>
-                <el-button type="primary" @click="goNewStores"><i class="el-icon-plus"></i> 新增</el-button>
+                <el-button type="primary" @click="go"><i class="el-icon-plus"></i> 新增</el-button>
             </el-form-item>
           </el-row>
         <el-form-item >
@@ -30,11 +30,14 @@
         </el-table-column>
       <el-table-column prop="number" align="center" label="联系人">
       </el-table-column>
-      <el-table-column prop="date" align="center" label="联系方式" @click="go">
+      <el-table-column prop="date" align="center" label="联系方式" >
       </el-table-column>
       <el-table-column prop="title" align="center" label="门店地址" >
       </el-table-column>
-       <el-table-column prop="number" align="center" label="赚取佣金" >
+       <el-table-column prop="number" align="center" label="赚取佣金">
+         <template slot-scope="scope">
+           <span @click="show('show')" id="show">{{scope.row.number}}</span>
+         </template>
       </el-table-column>
        <el-table-column prop="number" align="center" label="库存" >
       </el-table-column>
@@ -67,6 +70,8 @@
 export default {
   data() {
     return {
+      number: "",
+      goods:[],
       tableList: [
         {
           uid: 1,
@@ -138,6 +143,18 @@ export default {
       value:""
     };
   },
+  created(){
+    this.$axios.get('/user/detail',{
+      params:{
+          user_id:1
+        }
+    }).then(res=>{
+            this.goods = res.data;
+            console.log(this.goods)
+            var code  = this.goods.code
+            console.log(code);
+          })
+  },
   methods: {
     go() {
         this.$prompt('请输入邮箱', '提示', {
@@ -163,7 +180,15 @@ export default {
       },
       goNewStores(){
           this.$router.push({ path:'/storeManagement/newStores' })
-      }
+      },
+      demo(row, column){
+        console.log(row,column)
+      },
+      show(id){
+        let price = document.getElementById(id);
+        let priceValue = price.innerHTML;
+        console.log(priceValue); 
+        }
   }
 };
 </script>

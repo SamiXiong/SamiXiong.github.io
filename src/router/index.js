@@ -228,6 +228,12 @@ export const constantRouterMap = [
         name: 'newStores',
         component: () => import('@/views/storeManagement/newStores'),
         hidden: true
+      },
+      {
+        path: 'withdrawal',
+        name: 'withdrawal',
+        component: () => import('@/views/storeManagement/withdrawal'),
+        hidden: true
       }
     ]
   },

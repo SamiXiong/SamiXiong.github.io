@@ -25,7 +25,7 @@ Vue.use(ElementUI)
 // axios全局使用 ;
 
 Vue.prototype.$axios = axios
-axios.defaults.baseURL = 'http://www.52zuji.com/admin'
+axios.defaults.baseURL = 'https://dev-plant.52store.net/admin'
 //  默认接口地址
 Vue.config.productionTip = false
 
