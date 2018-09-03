@@ -234,6 +234,12 @@ export const constantRouterMap = [
         name: 'withdrawal',
         component: () => import('@/views/storeManagement/withdrawal'),
         hidden: true
+      },
+      {
+        path: 'commission',
+        name: 'commission',
+        component: () => import('@/views/storeManagement/commission'),
+        hidden: true
       }
     ]
   },

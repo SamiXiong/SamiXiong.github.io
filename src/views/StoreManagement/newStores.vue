@@ -3,7 +3,7 @@
     <el-row :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
             <el-form-item>
-                <el-button type="primary" @click="goStoreList"><i class="el-icon-plus"></i> 返回</el-button>
+                <el-button type="primary" @click="back"><i class="el-icon-plus"></i> 返回</el-button>
                 <span class="title-name">新增门店</span>
             </el-form-item>
       </el-form>
@@ -227,8 +227,8 @@ export default {
       push(){
           this.$router.push({ path: '/storeManagement/serialNumber'})
       },
-      goStoreList(){
-          this.$router.push({ path:'/storeManagement/storeList' })
+      back(){
+          this.$router.push(-1)
       }
   }
 };

@@ -4,7 +4,7 @@
       <el-form :inline="true">
           <el-row>
             <el-form-item>
-                <el-button type="primary" @click="go"><i class="el-icon-plus"></i> 新增</el-button>
+                <el-button type="primary" @click="goNewStores"><i class="el-icon-plus"></i> 新增</el-button>
             </el-form-item>
           </el-row>
         <el-form-item >
