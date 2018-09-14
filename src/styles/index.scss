@@ -60,7 +60,7 @@ a:hover {
   padding: 20px;
 }
 .bottom{
-  margin-bottom: 15px;
+  margin-bottom: 15px !important;
 }
 .title-name {
 line-height: 40px;
@@ -87,7 +87,16 @@ margin-left: 10px;
 .tabs{
   border: none;
 }
+.cursor{
+  cursor: pointer;
+}
 .span-title{
   width: 165px;
   float: left;
+}
+.block{
+  display: block !important;
+}
+.el-form-item__content{
+  margin-left: 20px !important;
 }

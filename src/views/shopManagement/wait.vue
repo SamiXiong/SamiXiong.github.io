@@ -3,12 +3,12 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
         <span class="title-name">商品名称</span>
-        <el-form-item >
-          <el-input placeholder="请输入商品名称" v-model="searchName" prefix="商品名称" class="width"></el-input>
+        <el-form-item class="width">
+          <el-input placeholder="请输入商品名称" v-model="searchName" prefix="商品名称"></el-input>
         </el-form-item>
         <span class="title-name">分类</span>
-        <el-form-item>
-          <el-select v-model="value" clearable placeholder="按账号" class="width">
+        <el-form-item  class="width">
+          <el-select v-model="value" clearable placeholder="按账号">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -18,8 +18,8 @@
           </el-select>
         </el-form-item>
         <span class="title-name">品牌</span>
-        <el-form-item >
-          <el-select v-model="value" clearable placeholder="请选择" class="width">
+        <el-form-item class="width">
+          <el-select v-model="value" clearable placeholder="请选择">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -29,8 +29,8 @@
           </el-select>
         </el-form-item>
         <span class="title-name">门店</span>
-        <el-form-item >
-          <el-select v-model="value" clearable placeholder="请选择" class="width">
+        <el-form-item class="width">
+          <el-select v-model="value" clearable placeholder="请选择">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -40,8 +40,8 @@
           </el-select>
         </el-form-item>
         <span class="title-name">状态</span>
-        <el-form-item >
-          <el-select v-model="value" clearable placeholder="已启用" class="width">
+        <el-form-item class="width">
+          <el-select v-model="value" clearable placeholder="已启用">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -79,14 +79,14 @@
       <el-table-column prop="operation" label="操作 " min-width="120">
         <template slot-scope="scope" >
          <el-button size="mini" type="primary"  @click="go(scope.row)">查看</el-button>
-          <el-button size="mini" type="success" @click="deleteUpdate(scope.row)">上架</el-button>
+          <el-button size="mini" type="success" @click=" shelves(scope.row)">上架</el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination layout="total, prev, pager, next"
                     background
                     :page-size="10"
-                    :total="100"
+                    :total=total
                     style="text-align:center;">
     </el-pagination>
     </div>
@@ -95,62 +95,7 @@
 export default {
   data() {
     return {
-      tableList: [
-        {
-          uid: 1,
-          date: "2015-08-10",
-          cname: "雷涛",
-          title: "Pfrgt Nyhwmzcdz Iclaepebm Rhbloqr Kxtqed Tedogn",
-          boolean: true,
-          status: 1,
-          number: 1221
-        },
-        {
-          uid: 2,
-          date: "1979-06-24",
-          cname: "方洋",
-          title: "Wcjvo Byhafb Kgd",
-          boolean: false,
-          status: 2,
-          number: 2891
-        },
-        {
-          uid: 3,
-          date: "2008-09-10",
-          cname: "邵霞",
-          title: "Nxtelbh Bqmwgf Ksqkg Obdxnydy Kigwvigcd Emqxrlb",
-          boolean: true,
-          status: 1,
-          number: 1862
-        },
-        {
-          uid: 4,
-          date: "1990-08-01",
-          cname: "孙娜",
-          title: "Gmng Nhhficneo Jhfbu Dfhhyqsddp Dwdq",
-          boolean: false,
-          status: 2,
-          number: 261
-        },
-        {
-          uid: 5,
-          date: "1999-01-12",
-          cname: "郭霞",
-          title: "Nixtusn Jvzwszhs Hxhxsrmj Qjixpu Dhaslwkzm",
-          boolean: false,
-          status: 1,
-          number: 1021
-        },
-        {
-          uid: 6,
-          date: "1987-03-11",
-          cname: "萧磊",
-          title: "Gibyv Rkuw Gxpdlqxt Ojwhxgzl Zejilzja",
-          boolean: true,
-          status: 1,
-          number: 1396
-        }
-      ],
+      tableList: [],
       options: [
         {
           value: "选项1",
@@ -176,7 +121,7 @@ export default {
       listLoading: false,
       searchName: "",
       value:"",
-      searchinfo:[]
+      total:0
     };
   },
   methods: {
@@ -196,21 +141,32 @@ export default {
         category_id:9,
         brand_id:5,
         store_id:1,
-        is_temporary:2
       }
        this.$axios.post('/goods/goods_list',data).then(res=>{
         this.tableList = res.data.data.data_list
+        this.total = res.data.data.data_list.length
+        console.log(this.total)
       }).catch(err=>{console.log(err)})
+    },
+    shelves(row){
+         this.$axios.get('/goods/temporary',{
+            params:{
+               goods_id:row.id
+            }
+            }).then(res=>{
+           console.log(res.data);
+            }).catch(err=>{console.log(err)})
     }
   },
   created(){
-    this.$axios.get('/goods/goods_list',{
+    this.$axios.get('/goods/verify_list',{
       params:{
         pageNo:1,
         pageSize:4
       }
     }).then(res=>{
       this.tableList = res.data.data.data_list
+      this.total = res.data.data.data_list.length
     }).catch(err=>{console.log(err)})
   }
 };

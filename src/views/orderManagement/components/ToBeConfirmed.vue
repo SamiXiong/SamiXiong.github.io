@@ -92,10 +92,10 @@
               select:this.value,
               value:this.searchName,
               pageNo:1,
-              num:5,
+              pageSize:5,
             }
             console.log(data)
-            this.$axios.post('/order/pre_pay',data).then(res=>{
+            this.$axios.post('/order/pre_confirm',data).then(res=>{
               this.tableList = res.data.data.data_list
               this.total = res.data.data.data_list.length
               console.log(this.total)
@@ -104,7 +104,7 @@
        },
        see(row){
         this.$router.push({
-              name:"applyForInfo",
+              name:"confirmInfo",
               params:{
                   id:row.id
               }
@@ -112,10 +112,10 @@
        }
     },
     created(){
-       this.$axios.get('/order/pre_pay',{
+       this.$axios.get('/order/pre_confirm',{
             params:{
                 pageNo:1,
-                num:5,
+                pageSize:5,
             }
         }).then(res=>{
             this.tableList = res.data.data.data_list

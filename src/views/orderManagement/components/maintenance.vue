@@ -33,6 +33,8 @@
                 </el-table-column>
                 <el-table-column prop="number" align="center" label="店铺" >
                 </el-table-column>
+                 <el-table-column prop="number" align="center" label="增值服务" >
+                </el-table-column>
                 <el-table-column prop="number" align="center" label="下单时间" >
                 </el-table-column>
                 <el-table-column prop="operation" label="操作 ">
@@ -95,7 +97,7 @@
               num:5,
             }
             console.log(data)
-            this.$axios.post('/order/pre_pay',data).then(res=>{
+            this.$axios.post('/order/in_repair',data).then(res=>{
               this.tableList = res.data.data.data_list
               this.total = res.data.data.data_list.length
               console.log(this.total)
@@ -104,7 +106,7 @@
        },
        see(row){
         this.$router.push({
-              name:"applyForInfo",
+              name:"confirmInfo",
               params:{
                   id:row.id
               }
@@ -112,7 +114,7 @@
        }
     },
     created(){
-       this.$axios.get('/order/pre_pay',{
+       this.$axios.get('/order/in_repair',{
             params:{
                 pageNo:1,
                 num:5,

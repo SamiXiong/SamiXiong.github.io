@@ -21,18 +21,30 @@ export const constantRouterMap = [
   },
   // 用户管理
   {
-    path: '/table',
+    path: '/user',
     component: Layout,
-    // redirect: '/table/index',
-    name: 'table',
-    meta: { icon: 'example' },
+    redirect: '/user/index',
+    name: 'user',
+    meta: { title: '用户管理', icon: 'example' },
     hidden: false,
     children: [
       {
         path: 'index',
         name: 'index',
-        component: () => import('@/views/table/index'),
+        component: () => import('@/views/user/index'),
         meta: { title: '用户列表', icon: 'table' }
+      },
+      {
+        path: 'userinfo',
+        name: 'userinfo',
+        component: () => import('@/views/user/userinfo'),
+        hidden: true
+      },
+      {
+        path: 'ShippingAddress',
+        name: 'ShippingAddress',
+        component: () => import('@/views/user/ShippingAddress'),
+        hidden: true
       }
       // {
       //   path: 'tree',
@@ -68,12 +80,6 @@ export const constantRouterMap = [
         name: 'BrandList',
         component: () => import('@/views/shop/BrandList'),
         meta: { title: '品牌列表', icon: 'table' }
-      },
-      {
-        path: 'leasePeriod',
-        name: 'leasePeriod',
-        component: () => import('@/views/shop/leasePeriod'),
-        meta: { title: '租赁周期', icon: 'table' }
       }
     ]
   },
@@ -86,16 +92,22 @@ export const constantRouterMap = [
     meta: { title: '商品管理', icon: 'table' },
     children: [
       {
-        path: 'ToAudit',
-        name: 'ToAudit',
-        component: () => import('@/views/shopManagement/ToAudit'),
-        meta: { title: '待审核', icon: 'table' }
-      },
-      {
         path: 'MerchantList',
         name: 'MerchantList',
-        component: () => import('@/views/shopManagement/MerchantList'),
+        component: () => import('@/views/shopManagement/ToAudit'),
         meta: { title: '商品列表', icon: 'table' }
+      },
+      {
+        path: 'ToAudit',
+        name: 'ToAudit',
+        component: () => import('@/views/shopManagement/MerchantList'),
+        hidden: true
+      },
+      {
+        path: 'Wait',
+        name: 'Wait',
+        component: () => import('@/views/shopManagement/wait'),
+        meta: { title: '待审核', icon: 'table' }
       }
     ]
   },
@@ -148,16 +160,10 @@ export const constantRouterMap = [
         meta: { title: '申请中', icon: 'table' }
       },
       {
-        path: 'afterSales',
-        name: 'afterSales',
-        component: () => import('@/views/orderManagement/afterSales'),
-        meta: { title: '售后', icon: 'table' }
-      },
-      {
-        path: 'cancelled',
-        name: 'cancelled',
-        component: () => import('@/views/orderManagement/cancelled'),
-        meta: { title: '已取消', icon: 'table' }
+        path: 'inTheLease',
+        name: 'inTheLease',
+        component: () => import('@/views/orderManagement/inTheLease'),
+        meta: { title: '租赁中', icon: 'table' }
       },
       {
         path: 'complete',
@@ -166,10 +172,112 @@ export const constantRouterMap = [
         meta: { title: '已完成', icon: 'table' }
       },
       {
-        path: 'inTheLease',
-        name: 'inTheLease',
-        component: () => import('@/views/orderManagement/inTheLease'),
-        meta: { title: '租赁中', icon: 'table' }
+        path: 'cancelled',
+        name: 'cancelled',
+        component: () => import('@/views/orderManagement/cancelled'),
+        meta: { title: '已取消', icon: 'table' }
+      },
+      {
+        path: 'blacklist',
+        name: 'blacklist',
+        component: () => import('@/views/orderManagement/blacklist'),
+        meta: { title: '黑名单', icon: 'table' }
+      },
+      {
+        path: 'abnormal',
+        name: 'abnormal',
+        component: () => import('@/views/orderManagement/abnormal'),
+        meta: { title: '异常订单', icon: 'table' }
+      },
+      {
+        path: 'afterSales',
+        name: 'afterSales',
+        component: () => import('@/views/orderManagement/afterSales'),
+        meta: { title: '售后报修', icon: 'table' }
+      },
+      {
+        path: 'applyForInfo',
+        name: 'applyForInfo',
+        component: () => import('@/views/orderManagement/applyForInfo'),
+        meta: { title: '待支付详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'confirmInfo',
+        name: 'confirmInfo',
+        component: () => import('@/views/orderManagement/confirmInfo'),
+        meta: { title: '待确认详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'deliveryInfo',
+        name: 'deliveryInfo',
+        component: () => import('@/views/orderManagement/deliveryInfo'),
+        meta: { title: '待发货详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'goodsInfo',
+        name: 'goodsInfo',
+        component: () => import('@/views/orderManagement/goodsInfo'),
+        meta: { title: '待收货详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'backInfo',
+        name: 'backInfo',
+        component: () => import('@/views/orderManagement/backInfo'),
+        meta: { title: '归还中详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'afterSalesInfo',
+        name: 'afterSalesInfo',
+        component: () => import('@/views/orderManagement/afterSalesInfo'),
+        meta: { title: '维修详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'userCancelledInfo',
+        name: 'userCancelledInfo',
+        component: () => import('@/views/orderManagement/userCancelledInfo'),
+        meta: { title: '用户拒绝详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'autoCancelledInfo',
+        name: 'autoCancelledInfo',
+        component: () => import('@/views/orderManagement/autoCancelledInfo'),
+        meta: { title: '自动拒绝详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'platformCancelledInfo',
+        name: 'platformCancelledInfo',
+        component: () => import('@/views/orderManagement/platformCancelledInfo'),
+        meta: { title: '平台拒绝详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'buyoutInfo',
+        name: 'buyoutInfo',
+        component: () => import('@/views/orderManagement/buyoutInfo'),
+        meta: { title: '买断详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'WithinInfo',
+        name: 'WithinInfo',
+        component: () => import('@/views/orderManagement/WithinInfo'),
+        meta: { title: '逾期详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'cheduledInfo',
+        name: 'cheduledInfo',
+        component: () => import('@/views/orderManagement/cheduledInfo'),
+        meta: { title: '如期归还详情', icon: 'table' },
+        hidden: true
       }
     ]
   },
@@ -230,8 +338,8 @@ export const constantRouterMap = [
         hidden: true
       },
       {
-        path: 'withdrawal',
-        name: 'withdrawal',
+        path: 'Cash',
+        name: 'Cash',
         component: () => import('@/views/storeManagement/withdrawal'),
         hidden: true
       },
@@ -239,6 +347,12 @@ export const constantRouterMap = [
         path: 'commission',
         name: 'commission',
         component: () => import('@/views/storeManagement/commission'),
+        hidden: true
+      },
+      {
+        path: 'recode',
+        name: 'recode',
+        component: () => import('@/views/storeManagement/recode'),
         hidden: true
       }
     ]
@@ -285,51 +399,51 @@ export const constantRouterMap = [
       }
     ]
   },
-  {
-    path: '/tab',
-    name: 'tab',
-    component: Layout,
-    meta: { icon: 'example' },
-    children: [
-      {
-        path: 'index',
-        name: 'tab',
-        component: () => import('@/views/tab/index'),
-        meta: { title: 'tab选项卡', icon: 'form' }
-      }
-    ]
-  },
+  // {
+  //   path: '/tab',
+  //   name: 'tab',
+  //   component: Layout,
+  //   meta: { icon: 'example' },
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'tab',
+  //       component: () => import('@/views/tab/index'),
+  //       meta: { title: 'tab选项卡', icon: 'form' }
+  //     }
+  //   ]
+  // },
   // 表单
-  {
-    path: '/form',
-    component: Layout,
-    redirect: '/table/BaseForm',
-    name: 'form',
-    meta: {
-      title: 'form',
-      icon: 'form'
-    },
-    children: [
-      {
-        path: 'Form',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      },
-      {
-        path: 'quillEditor',
-        name: 'quillEditor',
-        component: () => import('@/views/form/quillEditor'),
-        meta: { title: 'quillEditor', icon: 'form' }
-      },
-      {
-        path: 'tinymce',
-        name: 'tinymce',
-        component: () => import('@/views/form/tinymce'),
-        meta: { title: 'tinymce', icon: 'form' }
-      }
-    ]
-  },
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   redirect: '/table/BaseForm',
+  //   name: 'form',
+  //   meta: {
+  //     title: 'form',
+  //     icon: 'form'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'Form',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     },
+  //     {
+  //       path: 'quillEditor',
+  //       name: 'quillEditor',
+  //       component: () => import('@/views/form/quillEditor'),
+  //       meta: { title: 'quillEditor', icon: 'form' }
+  //     },
+  //     {
+  //       path: 'tinymce',
+  //       name: 'tinymce',
+  //       component: () => import('@/views/form/tinymce'),
+  //       meta: { title: 'tinymce', icon: 'form' }
+  //     }
+  //   ]
+  // },
   { path: '*', redirect: '/404', hidden: true }
 ]
 
@@ -340,19 +454,19 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
-  {
-    path: '/icon',
-    component: Layout,
-    name: '图标',
-    meta: { roles: ['admin'] },
-    children: [
-      {
-        path: 'index',
-        name: '图标',
-        component: () => import('@/views/svg-icon/index'),
-        meta: { title: '图标', icon: 'form', roles: ['admin'] }
-      }
-    ]
-  },
+  // {
+  //   path: '/icon',
+  //   component: Layout,
+  //   name: '图标',
+  //   meta: { roles: ['admin'] },
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: '图标',
+  //       component: () => import('@/views/svg-icon/index'),
+  //       meta: { title: '图标', icon: 'form', roles: ['admin'] }
+  //     }
+  //   ]
+  // },
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -33,11 +33,14 @@
                 </el-table-column>
                 <el-table-column prop="number" align="center" label="店铺" >
                 </el-table-column>
+                 <el-table-column prop="number" align="center" label="增值服务" >
+                </el-table-column>
                 <el-table-column prop="number" align="center" label="下单时间" >
                 </el-table-column>
                 <el-table-column prop="operation" label="操作 ">
                     <template slot-scope="scope" >
                     <el-button size="small" type="primary" @click="see(scope.row)">查看</el-button>
+                     <el-button size="small" type="primary" @click="see(scope.row)">物流</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -95,7 +98,7 @@
               num:5,
             }
             console.log(data)
-            this.$axios.post('/order/pre_pay',data).then(res=>{
+            this.$axios.post('/order/buyout_list',data).then(res=>{
               this.tableList = res.data.data.data_list
               this.total = res.data.data.data_list.length
               console.log(this.total)
@@ -104,7 +107,7 @@
        },
        see(row){
         this.$router.push({
-              name:"applyForInfo",
+              name:"buyoutInfo",
               params:{
                   id:row.id
               }
@@ -112,7 +115,7 @@
        }
     },
     created(){
-       this.$axios.get('/order/pre_pay',{
+       this.$axios.get('/order/buyout_list',{
             params:{
                 pageNo:1,
                 num:5,

@@ -2,8 +2,26 @@
     <div class="app-container">
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true">
-        <el-form-item>
-          <el-button type="primary"><i class="el-icon-plus"></i> 新增</el-button>
+        <el-form-item align = center>
+          <el-button type="primary" @click="newadd = true"><i class="el-icon-plus"></i> 新增</el-button>
+          <el-dialog title="新增/编辑分类" :visible.sync="newadd" width="40%">
+            <el-form :model="form">
+              <el-form-item label="一级分类" class="block bottom"  :label-width="formLabelWidth">
+                <el-input v-model="form.number" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="排序值" class="block bottom"  :label-width="formLabelWidth">
+                <el-input v-model="form.number" auto-complete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="是否显示:" class="block bottom"  :label-width="formLabelWidth">
+                   <el-radio v-model="value" label="1">显示</el-radio>
+                    <el-radio v-model="value" label="2">不显示</el-radio>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="newadd = false">取 消</el-button>
+                <el-button type="primary" @click="newadd = false">确 定</el-button>
+            </div>
+         </el-dialog>
         </el-form-item>
         <el-form-item >
           <el-input placeholder="分类名称" v-model="searchName"></el-input>
@@ -41,6 +59,7 @@
 export default {
   data() {
     return {
+      newadd:false,
       tableList: [
         {
           uid: 1,
@@ -97,8 +116,21 @@ export default {
           number: 1396
         }
       ],
+      form: {
+          name: '',
+          region: '',
+          number:'',
+          date1: '',
+          date2: '',
+          delivery: false,
+          type: [],
+          resource: '',
+          desc: ''
+        },
       listLoading: false,
-      searchName: ""
+      formLabelWidth: '90px',
+      searchName: "",
+      value:""
     };
   },
   methods: {

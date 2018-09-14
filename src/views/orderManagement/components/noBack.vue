@@ -33,11 +33,14 @@
                 </el-table-column>
                 <el-table-column prop="number" align="center" label="店铺" >
                 </el-table-column>
+                 <el-table-column prop="number" align="center" label="增值服务" >
+                </el-table-column>
                 <el-table-column prop="number" align="center" label="下单时间" >
                 </el-table-column>
                 <el-table-column prop="operation" label="操作 ">
                     <template slot-scope="scope" >
                     <el-button size="small" type="primary" @click="see(scope.row)">查看</el-button>
+                     <el-button size="small" type="primary" @click="see(scope.row)">已处理</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -89,13 +92,13 @@
             return
          }else{
             var data = {
-              select:this.value,
-              value:this.searchName,
+              $select:this.value,
+              $value:this.searchName,
               pageNo:1,
               num:5,
             }
             console.log(data)
-            this.$axios.post('/order/pre_pay',data).then(res=>{
+            this.$axios.post('/order/unreturn_query',data).then(res=>{
               this.tableList = res.data.data.data_list
               this.total = res.data.data.data_list.length
               console.log(this.total)
@@ -104,15 +107,24 @@
        },
        see(row){
         this.$router.push({
-              name:"applyForInfo",
+              name:"backInfo",
               params:{
                   id:row.id
               }
           })
+       },
+       addBacklist(row){
+           this.$axios.get('/order/add_blacklist',{
+            params:{
+                id:1,
+            }
+        }).then(res=>{
+            console.log(res.data)
+        }).catch(err=>{console.log(err)})
        }
     },
     created(){
-       this.$axios.get('/order/pre_pay',{
+       this.$axios.get('/order/over_unreturn',{
             params:{
                 pageNo:1,
                 num:5,

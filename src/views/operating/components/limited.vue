@@ -1,58 +1,53 @@
 <template>
     <div class="app-container">
-    <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-      <el-form :inline="true">
-        <el-form-item align = center>
-          <el-button type="primary" @click="newadd = true"><i class="el-icon-plus"></i> 新增</el-button>
-          <el-dialog title="新增/编辑分类" :visible.sync="newadd" width="40%">
-            <el-form :model="form">
-              <el-form-item label="一级分类" class="block bottom"  :label-width="formLabelWidth">
-                <el-input v-model="form.number" auto-complete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="排序值" class="block bottom"  :label-width="formLabelWidth">
-                <el-input v-model="form.number" auto-complete="off"></el-input>
-                </el-form-item>
-                <el-form-item label="是否显示:" class="block bottom"  :label-width="formLabelWidth">
-                   <el-radio v-model="value" label="1">显示</el-radio>
-                    <el-radio v-model="value" label="2">不显示</el-radio>
-                </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-                <el-button @click="newadd = false">取 消</el-button>
-                <el-button type="primary" @click="newadd = false">确 定</el-button>
-            </div>
-         </el-dialog>
-        </el-form-item>
-      </el-form>
-    </el-col>
-    <el-table :data="tableList" v-loading="listLoading" border element-loading-text="拼命加载中" style="width: 100%;">
-        <el-table-column prop="uid" align="center" label="推荐位名称">
-        </el-table-column>
-      <el-table-column prop="number" align="center" label="排序值">
-      </el-table-column>
-      <el-table-column  label="是否启用" width="120" >
-        <template slot-scope="scope">
-          <el-tag size="small" :type="scope.row.status | statusFilter" @click="isStatus(scope.$index, scope.row)" v-if="scope.row.status == 1">启用</el-tag>
-          <el-tag size="small"  :type="scope.row.status | statusFilter" @click="isStatus(scope.$index, scope.row)" v-if="scope.row.status == 2">禁用</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="title" align="center" label="商品列表" >
-      </el-table-column>
-      <el-table-column prop="operation" label="操作 ">
-        <template slot-scope="scope" >
-         <el-button size="small" type="primary"  @click="go">编辑</el-button>
-          <el-button size="small" type="danger" @click="deleteUpdate(scope.row)">删除</el-button>
-          <el-button v-if="scope.row.status!='1'" size="mini" @click="handleModifyStatus(scope.row,'1')">禁用
-          </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination layout="total, prev, pager, next"
+        <el-row class="bottom">
+            <el-col :span="12">
+                <el-col :span="4">
+                    <span class="title-name">封面设置</span>
+                </el-col>
+                <el-col>
+
+                </el-col>
+            </el-col>
+            <el-col :span="12">
+                <el-col>
+                    <span class="title-name">专题名称设置</span>
+                    <input type="text" disabled placeholder="300" class="input-text">
+                </el-col>
+            </el-col>
+        </el-row>
+        <el-table :data=" tableList" border class="bottom">
+            <el-table-column label="序号" prop="img"></el-table-column>
+            <el-table-column label="图片" prop="color"></el-table-column>
+            <el-table-column label="商品名称" prop="time"></el-table-column>
+            <el-table-column label="分类" prop="time"></el-table-column>
+            <el-table-column label="品牌" prop="money"></el-table-column>
+            <el-table-column label="门店" prop="price"></el-table-column>
+            <el-table-column label="租金" prop="guided"></el-table-column>
+            <el-table-column label="市场价" prop="guided"></el-table-column>
+            <el-table-column label="库存" prop="penalty"></el-table-column>
+            <el-table-column label="销量" prop="province"></el-table-column>
+            <el-table-column  label="状态" width="120" >
+            <template slot-scope="scope">
+            <el-tag size="small" :type="scope.row.status | statusFilter" @click="isStatus(scope.$index, scope.row)" v-if="scope.row.status == 1">启用</el-tag>
+            <el-tag size="small"  :type="scope.row.status | statusFilter" @click="isStatus(scope.$index, scope.row)" v-if="scope.row.status == 2">禁用</el-tag>
+            </template>
+            </el-table-column>
+            <el-table-column prop="operation" label="操作 ">
+                <template slot-scope="scope" >
+                <el-button size="small" type="primary"  @click="go">编辑</el-button>
+                <el-button size="small" type="danger" @click="deleteUpdate(scope.row)">删除</el-button>
+                <el-button v-if="scope.row.status!='1'" size="mini" @click="handleModifyStatus(scope.row,'1')">禁用
+                </el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+         <el-pagination layout="total, prev, pager, next"
                     background
                     :page-size="10"
                     :total="100"
                     style="text-align:center;">
-    </el-pagination>
+        </el-pagination>
     </div>
 </template>
 <script>
@@ -173,8 +168,3 @@ export default {
   }
 };
 </script>
-
-
-
-
-

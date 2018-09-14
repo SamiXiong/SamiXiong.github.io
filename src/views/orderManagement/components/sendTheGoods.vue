@@ -25,9 +25,11 @@
                 </el-table-column>
                 <el-table-column prop="number" align="center" label="订单号">
                 </el-table-column>
-                <el-table-column prop="date" align="center" label="买家账号" @click="go">
+                <el-table-column prop="date" align="center" label="买家账号">
                 </el-table-column>
                 <el-table-column prop="number" align="center" label="每月租金" >
+                </el-table-column>
+                 <el-table-column prop="number" align="center" label="增值服务" >
                 </el-table-column>
                 <el-table-column prop="number" align="center" label="规格" >
                 </el-table-column>
@@ -38,6 +40,7 @@
                 <el-table-column prop="operation" label="操作 ">
                     <template slot-scope="scope" >
                     <el-button size="small" type="primary" @click="see(scope.row)">查看</el-button>
+                    <el-button size="small" type="primary" @click="send(scope.row)">发货</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -92,10 +95,10 @@
               select:this.value,
               value:this.searchName,
               pageNo:1,
-              num:5,
+              pageSize:5,
             }
             console.log(data)
-            this.$axios.post('/order/pre_pay',data).then(res=>{
+            this.$axios.post('/order/pre_send',data).then(res=>{
               this.tableList = res.data.data.data_list
               this.total = res.data.data.data_list.length
               console.log(this.total)
@@ -104,15 +107,25 @@
        },
        see(row){
         this.$router.push({
-              name:"applyForInfo",
+              name:"deliveryInfo",
               params:{
                   id:row.id
               }
           })
+       },
+       send(row){
+            this.$axios.get('/order/pre_send',{
+                params:{
+                   id:row.id
+                }
+            }).then(res=>{
+                console.log(res.data)
+                 this.$message.success('发货成功！')
+            }).catch(err=>{console.log(err)})
        }
     },
     created(){
-       this.$axios.get('/order/pre_pay',{
+       this.$axios.get('/order/pre_send',{
             params:{
                 pageNo:1,
                 num:5,

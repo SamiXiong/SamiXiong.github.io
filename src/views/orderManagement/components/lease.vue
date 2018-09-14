@@ -33,7 +33,11 @@
                 </el-table-column>
                 <el-table-column prop="number" align="center" label="店铺" >
                 </el-table-column>
+                 <el-table-column prop="number" align="center" label="增值服务" >
+                </el-table-column>
                 <el-table-column prop="number" align="center" label="下单时间" >
+                </el-table-column>
+                 <el-table-column prop="number" align="center" label="本月付租日" >
                 </el-table-column>
                 <el-table-column prop="operation" label="操作 ">
                     <template slot-scope="scope" >
@@ -95,7 +99,7 @@
               num:5,
             }
             console.log(data)
-            this.$axios.post('/order/pre_pay',data).then(res=>{
+            this.$axios.post('/order/in_rent_query',data).then(res=>{
               this.tableList = res.data.data.data_list
               this.total = res.data.data.data_list.length
               console.log(this.total)
@@ -104,7 +108,7 @@
        },
        see(row){
         this.$router.push({
-              name:"applyForInfo",
+              name:"confirmInfo",
               params:{
                   id:row.id
               }
@@ -112,7 +116,7 @@
        }
     },
     created(){
-       this.$axios.get('/order/pre_pay',{
+       this.$axios.get('/order/in_rent',{
             params:{
                 pageNo:1,
                 num:5,
